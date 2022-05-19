@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
+import { spacings } from './tokens/spacings';
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -27,11 +29,16 @@ export function activate(context: vscode.ExtensionContext) {
 
   const hover = vscode.languages.registerHoverProvider("javascript", {
     provideHover(document, position, token) {
-      const content = new vscode.MarkdownString(
-        `<code>test</code>`
-      );
-      content.supportHtml = true;
-      return new vscode.Hover(content);
+      const word = document.getText(document.getWordRangeAtPosition(position));
+      if (word && spacings[word]) {
+        const content = new vscode.MarkdownString(
+          `<code>${spacings[word]}</code>`
+        );
+        content.supportHtml = true;
+        content.value = spacings[word];
+        return new vscode.Hover(content);
+      }
+      return null;
     },
   });
 
