@@ -2,7 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import { spacings } from './tokens/spacings';
+import { spacings } from "./tokens/spacings";
+import { textColors } from './tokens/text-colors';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -13,36 +14,23 @@ export function activate(context: vscode.ExtensionContext) {
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
   );
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand(
-    "twilio-paste-intellisense.helloWorld",
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        "Hello World from twilio-paste-intellisense!"
-      );
-    }
-  );
-
   const hover = vscode.languages.registerHoverProvider("javascript", {
     provideHover(document, position, token) {
       const word = document.getText(document.getWordRangeAtPosition(position));
-      if (word && spacings[word]) {
-        const content = new vscode.MarkdownString(
-          `<code>${spacings[word]}</code>`
-        );
-        content.supportHtml = true;
-        content.value = spacings[word];
-        return new vscode.Hover(content);
+      if (word && textColors[word]) {
+        const currentTextColor = textColors[word];
+        const hoverMessage = new vscode.MarkdownString();
+        hoverMessage.appendMarkdown(`${currentTextColor.label} - \`${currentTextColor.value}\`\n___\n`);
+        hoverMessage.appendMarkdown(`${currentTextColor.description}\n`);
+
+        hoverMessage.isTrusted = true;
+
+        return new vscode.Hover(hoverMessage);
       }
       return null;
     },
   });
 
-  context.subscriptions.push(disposable);
   context.subscriptions.push(hover);
 }
 
