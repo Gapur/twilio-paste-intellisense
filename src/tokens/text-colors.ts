@@ -1,10 +1,6 @@
-interface TextColor {
-  label: string;
-  value: string;
-  description: string;
-}
+import { Token } from './index';
 
-export const textColors: Record<string, TextColor> = {
+export const textColors: Record<string, Token> = {
   colorText: {
     label: "color-text",
     value: "rgb(18, 28, 45)",
