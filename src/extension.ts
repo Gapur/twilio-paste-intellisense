@@ -19,10 +19,10 @@ export function activate(context: vscode.ExtensionContext) {
       const word = document.getText(document.getWordRangeAtPosition(position));
       if (word && textColors[word]) {
         const currentTextColor = textColors[word];
+        
         const hoverMessage = new vscode.MarkdownString();
-        hoverMessage.appendMarkdown(`${currentTextColor.label} - \`${currentTextColor.value}\`\n___\n`);
+        hoverMessage.appendMarkdown(`${currentTextColor.label}: \`${currentTextColor.value}\`\n___\n`);
         hoverMessage.appendMarkdown(`${currentTextColor.description}\n`);
-
         hoverMessage.isTrusted = true;
 
         return new vscode.Hover(hoverMessage);
