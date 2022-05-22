@@ -1,4 +1,4 @@
-import { Token } from './index';
+import { Token } from "../models/token";
 
 export const zIndices: Record<string, Token> = {
   zIndex0: {

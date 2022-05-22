@@ -1,4 +1,4 @@
-import { Token } from "./index";
+import { Token } from "../models/token";
 
 export const radii: Record<string, Token> = {
   borderRadius0: {

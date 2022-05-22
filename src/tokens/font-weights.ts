@@ -1,4 +1,4 @@
-import { Token } from "./index";
+import { Token } from "../models/token";
 
 export const fontWeights: Record<string, Token> = {
   fontWeightLight: {
