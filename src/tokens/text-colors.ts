@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const textColors: Record<string, Token> = {
+export const textColors: Record<string, PasteToken> = {
   colorText: {
     label: "color-text",
     value: "rgb(18, 28, 45)",

@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const radii: Record<string, Token> = {
+export const radii: Record<string, PasteToken> = {
   borderRadius0: {
     label: "border-radius-0",
     value: "0",

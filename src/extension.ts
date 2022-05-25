@@ -2,21 +2,21 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import tokens from "./tokens";
-import { Token } from "./models/token";
+import pasteTokens from "./tokens";
+import { PasteToken } from "./models/paste-token";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
   );
 
-  const findToken = (word?: string): Token | null => {
+  const findToken = (word?: string): PasteToken | null => {
     if (!word) {
       return null;
     }
-    for (const token of Object.values(tokens)) {
-      if (token[word]) {
-        return token[word];
+    for (const pasteToken of Object.values(pasteTokens)) {
+      if (pasteToken[word]) {
+        return pasteToken[word];
       }
     }
     return null;
@@ -25,15 +25,16 @@ export function activate(context: vscode.ExtensionContext) {
   const hover = vscode.languages.registerHoverProvider("javascript", {
     provideHover(document, position, token) {
       const word = document.getText(document.getWordRangeAtPosition(position));
-      const foundToken = findToken(word);
-      if (foundToken) {
+      const foundPasteToken = findToken(word);
+      if (foundPasteToken) {
         const hoverMessage = new vscode.MarkdownString();
+        
         hoverMessage.appendMarkdown(
-          `${foundToken.label}: \`${foundToken.value}\`\n`
+          `${foundPasteToken.label}: \`${foundPasteToken.value}\`\n`
         );
         hoverMessage.appendMarkdown(`___\n`);
-        if (foundToken.description) {
-          hoverMessage.appendMarkdown(`${foundToken.description}\n`);
+        if (foundPasteToken.description) {
+          hoverMessage.appendMarkdown(`${foundPasteToken.description}\n`);
         }
         hoverMessage.isTrusted = true;
 

@@ -1,4 +1,4 @@
-export interface Token {
+export interface PasteToken {
   label: string;
   value: string;
   description?: string;

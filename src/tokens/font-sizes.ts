@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const fontSizes: Record<string, Token> = {
+export const fontSizes: Record<string, PasteToken> = {
   fontSize10: {
     label: "font-size-10",
     value: "0.625rem (10px)",

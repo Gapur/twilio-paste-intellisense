@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const fontWeights: Record<string, Token> = {
+export const fontWeights: Record<string, PasteToken> = {
   fontWeightLight: {
     label: "font-weight-light",
     value: "400",

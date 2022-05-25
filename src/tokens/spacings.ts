@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const spacings: Record<string, Token> = {
+export const spacings: Record<string, PasteToken> = {
   space0: {
     label: "space-0",
     value: "0 (0px)",

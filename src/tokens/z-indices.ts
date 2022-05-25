@@ -1,6 +1,6 @@
-import { Token } from "../models/token";
+import { PasteToken } from "../models/paste-token";
 
-export const zIndices: Record<string, Token> = {
+export const zIndices: Record<string, PasteToken> = {
   zIndex0: {
     label: "z-index-0",
     value: "0",
