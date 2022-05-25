@@ -5,6 +5,7 @@ import { radii } from "./radii";
 import { fontWeights } from "./font-weights";
 import { fontSizes } from "./font-sizes";
 import { backgrounColors } from './background-colors';
+import { borderWidths } from './border-widths';
 
 export default {
   spacings,
@@ -14,4 +15,5 @@ export default {
   fontWeights,
   fontSizes,
   backgrounColors,
+  borderWidths,
 };
