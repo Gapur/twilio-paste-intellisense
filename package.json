@@ -10,17 +10,9 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:twilio-paste-intellisense.helloWorld"
+  	"onStartupFinished"
 	],
 	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "twilio-paste-intellisense.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
 		"compile": "tsc -p ./",
