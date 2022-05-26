@@ -7,6 +7,7 @@ import { fontSizes } from "./font-sizes";
 import { backgrounColors } from './background-colors';
 import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
+import { colors } from './colors';
 
 export default {
   spacings,
@@ -18,4 +19,5 @@ export default {
   backgrounColors,
   borderWidths,
   borderColors,
+  colors,
 };
