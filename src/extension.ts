@@ -5,27 +5,27 @@ import * as vscode from "vscode";
 import pasteTokens from "./tokens";
 import { PasteToken } from "./models/paste-token";
 
+export function findPasteToken(word?: string): PasteToken | null {
+  if (!word) {
+    return null;
+  }
+  for (const pasteToken of Object.values(pasteTokens)) {
+    if (pasteToken[word]) {
+      return pasteToken[word];
+    }
+  }
+  return null;
+};
+
 export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
   );
 
-  const findToken = (word?: string): PasteToken | null => {
-    if (!word) {
-      return null;
-    }
-    for (const pasteToken of Object.values(pasteTokens)) {
-      if (pasteToken[word]) {
-        return pasteToken[word];
-      }
-    }
-    return null;
-  };
-
   const hover = vscode.languages.registerHoverProvider("javascript", {
     provideHover(document, position, token) {
       const word = document.getText(document.getWordRangeAtPosition(position));
-      const foundPasteToken = findToken(word);
+      const foundPasteToken = findPasteToken(word);
       if (foundPasteToken) {
         const hoverMessage = new vscode.MarkdownString();
         
