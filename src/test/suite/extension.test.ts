@@ -28,4 +28,24 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(colorTextToken?.value, "rgb(18, 28, 45)");
 		assert.strictEqual(colorTextToken?.description, "Body text color");
 	});
+
+	test('when we don`t find twilio paste token', () => {
+		const borderWidth0Word = "borderWidth0";
+		const borderWidth0Token = myExtension.findPasteToken(borderWidth0Word);
+
+		assert.strictEqual(borderWidth0Token?.label, "border-width-0");
+		assert.strictEqual(borderWidth0Token?.value, "0");
+		assert.strictEqual(borderWidth0Token?.description, "Border width reset");
+
+		const notFoundWord = "notFoundWord";
+		const notFoundToken = myExtension.findPasteToken(notFoundWord);
+
+		assert.strictEqual(notFoundToken, null);
+	});
+
+	test('when word is undefined', () => {
+		const nullToken = myExtension.findPasteToken(undefined);
+
+		assert.strictEqual(nullToken, null);
+	});
 });
