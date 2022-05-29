@@ -3,6 +3,19 @@
 	"displayName": "twilio-paste-intellisense",
 	"description": "Intelligent Twilio Paste Design tooling for VS Code",
 	"version": "0.0.1",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/Gapur/twilio-paste-intellisense.git"
+  },
+	"keywords": [
+    "twilio",
+    "twilio-paste",
+		"paste",
+    "css",
+    "intellisense",
+    "autocomplete",
+    "vscode"
+  ],
 	"engines": {
 		"vscode": "^1.66.0"
 	},
