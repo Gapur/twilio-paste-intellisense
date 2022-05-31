@@ -3,10 +3,16 @@
 	"displayName": "twilio-paste-intellisense",
 	"description": "Intelligent Twilio Paste Design tooling for VS Code",
 	"version": "0.0.1",
+	"homepage": "https://github.com/Gapur/twilio-paste-intellisense",
+  "bugs": {
+    "url": "https://github.com/Gapur/twilio-paste-intellisense/issues",
+    "email": "gapur.kassym@gmail.com"
+  },
 	"repository": {
     "type": "git",
     "url": "https://github.com/Gapur/twilio-paste-intellisense.git"
   },
+	"publisher": "Gapur",
 	"keywords": [
     "twilio",
     "twilio-paste",
@@ -20,6 +26,7 @@
 		"vscode": "^1.66.0"
 	},
 	"categories": [
+		"Linters",
 		"Other"
 	],
 	"activationEvents": [
