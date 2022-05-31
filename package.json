@@ -32,7 +32,7 @@
   "galleryBanner": {
     "color": "#121C2D"
   },
-  "icon": "src/assets/favicon.png",
+  "icon": "assets/favicon.png",
   "activationEvents": [
     "onStartupFinished"
   ],
