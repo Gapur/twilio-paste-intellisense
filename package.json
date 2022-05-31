@@ -2,7 +2,7 @@
   "name": "twilio-paste-intellisense",
   "displayName": "Twilio Paste Intellisense",
   "description": "Intelligent Twilio Paste Design tooling for VS Code",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/Gapur/twilio-paste-intellisense",
   "bugs": {
     "url": "https://github.com/Gapur/twilio-paste-intellisense/issues",
