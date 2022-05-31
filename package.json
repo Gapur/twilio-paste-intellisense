@@ -1,6 +1,6 @@
 {
   "name": "twilio-paste-intellisense",
-  "displayName": "twilio-paste-intellisense",
+  "displayName": "Twilio Paste Intellisense",
   "description": "Intelligent Twilio Paste Design tooling for VS Code",
   "version": "0.1.0",
   "homepage": "https://github.com/Gapur/twilio-paste-intellisense",
@@ -29,6 +29,10 @@
     "Linters",
     "Other"
   ],
+  "galleryBanner": {
+    "color": "#121C2D"
+  },
+  "icon": "src/assets/favicon.png",
   "activationEvents": [
     "onStartupFinished"
   ],
