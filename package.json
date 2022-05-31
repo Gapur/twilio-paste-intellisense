@@ -31,7 +31,7 @@
   ],
   "icon": "assets/favicon.png",
   "galleryBanner": {
-    "color": "#121C2D"
+    "color": "#f9fafb"
   },
   "activationEvents": [
     "onStartupFinished"

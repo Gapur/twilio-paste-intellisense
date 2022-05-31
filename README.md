@@ -1,3 +1,3 @@
-# twilio-paste-intellisense README
+<img src="https://raw.githubusercontent.com/Gapur/twilio-paste-intellisense/main/assets/favicon.png" alt="Twilio Paste" />
 
-After writing up a brief description, we recommend including the following sections.
+Twili Paste IntelliSense extends the development experience of Twilio Paste by giving Visual Studio Code users additional functionality such as hover.
