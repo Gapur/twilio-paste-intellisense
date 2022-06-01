@@ -15,34 +15,39 @@ export function findPasteToken(word?: string): PasteToken | null {
     }
   }
   return null;
-};
+}
 
 export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
   );
 
-  const hover = vscode.languages.registerHoverProvider("javascript", {
-    provideHover(document, position, token) {
-      const word = document.getText(document.getWordRangeAtPosition(position));
-      const foundPasteToken = findPasteToken(word);
-      if (foundPasteToken) {
-        const hoverMessage = new vscode.MarkdownString();
-        
-        hoverMessage.appendMarkdown(
-          `${foundPasteToken.label}: \`${foundPasteToken.value}\`\n`
+  const hover = vscode.languages.registerHoverProvider(
+    ["javascript", "typescript", "javascriptreact", "typescriptreact"],
+    {
+      provideHover(document, position, token) {
+        const word = document.getText(
+          document.getWordRangeAtPosition(position)
         );
-        hoverMessage.appendMarkdown(`___\n`);
-        if (foundPasteToken.description) {
-          hoverMessage.appendMarkdown(`${foundPasteToken.description}\n`);
-        }
-        hoverMessage.isTrusted = true;
+        const foundPasteToken = findPasteToken(word);
+        if (foundPasteToken) {
+          const hoverMessage = new vscode.MarkdownString();
 
-        return new vscode.Hover(hoverMessage);
-      }
-      return null;
-    },
-  });
+          hoverMessage.appendMarkdown(
+            `${foundPasteToken.label}: \`${foundPasteToken.value}\`\n`
+          );
+          hoverMessage.appendMarkdown(`___\n`);
+          if (foundPasteToken.description) {
+            hoverMessage.appendMarkdown(`${foundPasteToken.description}\n`);
+          }
+          hoverMessage.isTrusted = true;
+
+          return new vscode.Hover(hoverMessage);
+        }
+        return null;
+      },
+    }
+  );
 
   context.subscriptions.push(hover);
 }
