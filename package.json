@@ -4,6 +4,8 @@
   "description": "Intelligent Twilio Paste Design tooling for VS Code",
   "version": "0.1.3",
   "homepage": "https://github.com/Gapur/twilio-paste-intellisense",
+  "author": "Gapur Kassym",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Gapur/twilio-paste-intellisense/issues",
     "email": "gapur.kassym@gmail.com"
