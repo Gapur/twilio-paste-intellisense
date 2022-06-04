@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
   );
 
-  const hover = vscode.languages.registerHoverProvider(
+  const hoverProvider = vscode.languages.registerHoverProvider(
     ["javascript", "typescript", "javascriptreact", "typescriptreact"],
     {
       provideHover(document, position, token) {
@@ -49,7 +49,38 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(hover);
+  const completionProvider = vscode.languages.registerCompletionItemProvider(
+    "javascript",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (!linePrefix.endsWith("console.")) {
+          return undefined;
+        }
+
+        const label = {
+          label: "label",
+          description: "description"
+        } as vscode.CompletionItemLabel;
+
+        return [
+          new vscode.CompletionItem("myLog", vscode.CompletionItemKind.Method),
+          new vscode.CompletionItem("myWarn", vscode.CompletionItemKind.Constant),
+          new vscode.CompletionItem(
+            label, vscode.CompletionItemKind.Method),
+        ];
+      },
+    },
+    "." // triggered whenever a '.' is being typed
+  );
+
+  context.subscriptions.push(hoverProvider);
+  context.subscriptions.push(completionProvider);
 }
 
 export function deactivate() {}
