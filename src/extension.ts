@@ -34,9 +34,9 @@ export function getAttributeName(linePrefix: string) {
 
 export function getAttributeTokens(attributeName: string) {
   const items: vscode.CompletionItem[] = [];
-  const pastTokenName = pasteTokenAttributes[attributeName];
-  if (pasteTokens[pastTokenName]) {
-    for (const [key, value] of Object.entries(pasteTokens[pastTokenName])) {
+  const pasteTokenName = pasteTokenAttributes[attributeName];
+  if (pasteTokens[pasteTokenName]) {
+    for (const [key, value] of Object.entries(pasteTokens[pasteTokenName])) {
       const completionItemLabel: vscode.CompletionItemLabel = {
         label: key,
         description: value.value,
