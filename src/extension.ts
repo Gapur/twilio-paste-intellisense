@@ -17,6 +17,53 @@ export function findPasteToken(word?: string): PasteToken | null {
   return null;
 }
 
+export function getAttributeName(linePrefix: string) {
+  let attributeName = "";
+  for (let endIdx = linePrefix.length - 1; endIdx >= 0; endIdx -= 1) {
+    if (linePrefix[endIdx] === " ") {
+      break;
+    }
+    if (linePrefix[endIdx] === "=") {
+      continue;
+    }
+    attributeName = linePrefix[endIdx] + attributeName;
+  }
+
+  return attributeName;
+}
+
+const PASTE_TOKENS_WITH_ATTRIBUTES = [
+  {
+    key: "spacings",
+    attributes: [
+      "margin",
+      "marginTop",
+      "marginRight",
+      "marginBottom",
+      "marginLeft",
+      "marginX",
+      "marginY",
+      "padding",
+      "paddingTop",
+      "paddingRight",
+      "paddingBottom",
+      "paddingLeft",
+      "paddingX",
+      "paddingY",
+    ],
+  },
+  {
+    key: "radii",
+    attributes: [
+      "borderRadius",
+      "borderTopLeftRadius",
+      "borderTopRightRadius",
+      "borderBottomRightRadius",
+      "borderBottomLeftRadius",
+    ],
+  },
+];
+
 export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "twilio-paste-intellisense" is now active!'
@@ -50,7 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const completionProvider = vscode.languages.registerCompletionItemProvider(
-    "javascript",
+    ["javascript", "typescript", "javascriptreact", "typescriptreact"],
     {
       provideCompletionItems(
         document: vscode.TextDocument,
@@ -58,25 +105,36 @@ export function activate(context: vscode.ExtensionContext) {
       ) {
         const linePrefix = document
           .lineAt(position)
-          .text.substr(0, position.character);
-        if (!linePrefix.endsWith("console.")) {
-          return undefined;
+          .text.slice(0, position.character);
+
+        const items = [];
+        const attributeName = getAttributeName(linePrefix);
+        for (const pasteTokenWithAttributes of PASTE_TOKENS_WITH_ATTRIBUTES) {
+          if (pasteTokenWithAttributes.attributes.includes(attributeName)) {
+            for (const attribute of pasteTokenWithAttributes.attributes) {
+              const foundPasteToken = findPasteToken(attribute);
+              if (!foundPasteToken) {
+                continue;
+              }
+              const completionItemLabel: vscode.CompletionItemLabel = {
+                label: foundPasteToken.label,
+                description: foundPasteToken.description,
+              };
+
+              items.push(
+                new vscode.CompletionItem(
+                  completionItemLabel,
+                  vscode.CompletionItemKind.Constant
+                )
+              );
+            }
+          }
         }
 
-        const label = {
-          label: "label",
-          description: "description"
-        } as vscode.CompletionItemLabel;
-
-        return [
-          new vscode.CompletionItem("myLog", vscode.CompletionItemKind.Method),
-          new vscode.CompletionItem("myWarn", vscode.CompletionItemKind.Constant),
-          new vscode.CompletionItem(
-            label, vscode.CompletionItemKind.Method),
-        ];
+        return { isIncomplete: false, items };
       },
     },
-    "." // triggered whenever a '.' is being typed
+    '"' // triggered when we type '"'
   );
 
   context.subscriptions.push(hoverProvider);
