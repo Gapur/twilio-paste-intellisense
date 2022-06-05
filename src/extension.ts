@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import pasteTokens from "./tokens";
+import pasteTokens, { pasteTokenAttributes } from "./tokens";
 import { PasteToken } from "./models/paste-token";
 
 export function findPasteToken(word?: string): PasteToken | null {
@@ -32,30 +32,28 @@ export function getAttributeName(linePrefix: string) {
   return attributeName;
 }
 
-const PASTE_TOKEN_ATTRIBUTES: {
-  name: string;
-  token: keyof typeof pasteTokens;
-}[] = [
-  { name: "margin", token: "spacings" },
-  { name: "marginTop", token: "spacings" },
-  { name: "marginRight", token: "spacings" },
-  { name: "marginBottom", token: "spacings" },
-  { name: "marginLeft", token: "spacings" },
-  { name: "marginX", token: "spacings" },
-  { name: "marginY", token: "spacings" },
-  { name: "padding", token: "spacings" },
-  { name: "paddingTop", token: "spacings" },
-  { name: "paddingRight", token: "spacings" },
-  { name: "paddingBottom", token: "spacings" },
-  { name: "paddingLeft", token: "spacings" },
-  { name: "paddingX", token: "spacings" },
-  { name: "paddingY", token: "spacings" },
-  { name: "borderRadius", token: "radii" },
-  { name: "borderTopLeftRadius", token: "radii" },
-  { name: "borderTopRightRadius", token: "radii" },
-  { name: "borderBottomRightRadius", token: "radii" },
-  { name: "borderBottomLeftRadius", token: "radii" },
-];
+export function getAttributeTokens(attributeName: string) {
+  const items: vscode.CompletionItem[] = [];
+  const pastTokenName = pasteTokenAttributes[attributeName];
+  if (pasteTokens[pastTokenName]) {
+    for (const [key, value] of Object.entries(pasteTokens[pastTokenName])) {
+      const completionItemLabel: vscode.CompletionItemLabel = {
+        label: key,
+        description: value.value,
+      };
+
+      items.push(
+        new vscode.CompletionItem(
+          completionItemLabel,
+          vscode.CompletionItemKind.Constant
+        )
+      );
+    }
+    return items;
+  }
+
+  return items;
+}
 
 export function activate(context: vscode.ExtensionContext) {
   console.log(
@@ -100,27 +98,9 @@ export function activate(context: vscode.ExtensionContext) {
           .lineAt(position)
           .text.slice(0, position.character);
 
-        const items = [];
         const attributeName = getAttributeName(linePrefix);
 
-        for (const pastTokenAttribute of PASTE_TOKEN_ATTRIBUTES) {
-          const tokenName = pastTokenAttribute.token;
-          if (pastTokenAttribute.name === attributeName) {
-            for (const [key, value] of Object.entries(pasteTokens[tokenName])) {
-              const completionItemLabel: vscode.CompletionItemLabel = {
-                label: key,
-                description: value.value,
-              };
-
-              items.push(
-                new vscode.CompletionItem(
-                  completionItemLabel,
-                  vscode.CompletionItemKind.Constant
-                )
-              );
-            }
-          }
-        }
+        const items = getAttributeTokens(attributeName);
 
         return { isIncomplete: false, items };
       },

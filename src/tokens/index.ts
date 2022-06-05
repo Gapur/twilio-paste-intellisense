@@ -9,6 +9,8 @@ import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { colors } from './colors';
 
+export * from './paste-token-attributes';
+
 export default {
   spacings,
   textColors,
