@@ -19,7 +19,7 @@ export function findPasteToken(word?: string): PasteToken | null {
 
 export function getAttributeName(linePrefix: string) {
   let attributeName = "";
-  for (let endIdx = linePrefix.length - 1; endIdx >= 0; endIdx -= 1) {
+  for (let endIdx = linePrefix.length - 2; endIdx >= 0; endIdx -= 1) {
     if (linePrefix[endIdx] === " ") {
       break;
     }
@@ -32,36 +32,29 @@ export function getAttributeName(linePrefix: string) {
   return attributeName;
 }
 
-const PASTE_TOKENS_WITH_ATTRIBUTES = [
-  {
-    key: "spacings",
-    attributes: [
-      "margin",
-      "marginTop",
-      "marginRight",
-      "marginBottom",
-      "marginLeft",
-      "marginX",
-      "marginY",
-      "padding",
-      "paddingTop",
-      "paddingRight",
-      "paddingBottom",
-      "paddingLeft",
-      "paddingX",
-      "paddingY",
-    ],
-  },
-  {
-    key: "radii",
-    attributes: [
-      "borderRadius",
-      "borderTopLeftRadius",
-      "borderTopRightRadius",
-      "borderBottomRightRadius",
-      "borderBottomLeftRadius",
-    ],
-  },
+const PASTE_TOKEN_ATTRIBUTES: {
+  name: string;
+  token: keyof typeof pasteTokens;
+}[] = [
+  { name: "margin", token: "spacings" },
+  { name: "marginTop", token: "spacings" },
+  { name: "marginRight", token: "spacings" },
+  { name: "marginBottom", token: "spacings" },
+  { name: "marginLeft", token: "spacings" },
+  { name: "marginX", token: "spacings" },
+  { name: "marginY", token: "spacings" },
+  { name: "padding", token: "spacings" },
+  { name: "paddingTop", token: "spacings" },
+  { name: "paddingRight", token: "spacings" },
+  { name: "paddingBottom", token: "spacings" },
+  { name: "paddingLeft", token: "spacings" },
+  { name: "paddingX", token: "spacings" },
+  { name: "paddingY", token: "spacings" },
+  { name: "borderRadius", token: "radii" },
+  { name: "borderTopLeftRadius", token: "radii" },
+  { name: "borderTopRightRadius", token: "radii" },
+  { name: "borderBottomRightRadius", token: "radii" },
+  { name: "borderBottomLeftRadius", token: "radii" },
 ];
 
 export function activate(context: vscode.ExtensionContext) {
@@ -109,16 +102,14 @@ export function activate(context: vscode.ExtensionContext) {
 
         const items = [];
         const attributeName = getAttributeName(linePrefix);
-        for (const pasteTokenWithAttributes of PASTE_TOKENS_WITH_ATTRIBUTES) {
-          if (pasteTokenWithAttributes.attributes.includes(attributeName)) {
-            for (const attribute of pasteTokenWithAttributes.attributes) {
-              const foundPasteToken = findPasteToken(attribute);
-              if (!foundPasteToken) {
-                continue;
-              }
+
+        for (const pastTokenAttribute of PASTE_TOKEN_ATTRIBUTES) {
+          const tokenName = pastTokenAttribute.token;
+          if (pastTokenAttribute.name === attributeName) {
+            for (const [key, value] of Object.entries(pasteTokens[tokenName])) {
               const completionItemLabel: vscode.CompletionItemLabel = {
-                label: foundPasteToken.label,
-                description: foundPasteToken.description,
+                label: key,
+                description: value.value,
               };
 
               items.push(
