@@ -110,5 +110,15 @@ suite("Extension Test Suite", () => {
 
       assert.strictEqual(zIndexToken.length, 10);
     });
+
+    test("when attribute name is not correct", () => {
+      const borderRadiusToken = myExtension.getAttributeTokens("borderRadi");
+
+      assert.strictEqual(borderRadiusToken.length, 0);
+
+      const zIndexToken = myExtension.getAttributeTokens("");
+
+      assert.strictEqual(zIndexToken.length, 0);
+    });
   });
 });
