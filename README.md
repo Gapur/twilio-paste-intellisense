@@ -23,6 +23,12 @@ In Paste, 1 rem unit = 16 pixels.
 
 ## Features
 
+### Autocomplete
+
+Intelligent suggestions for twilio paste token attributes.
+
+<img src="https://raw.githubusercontent.com/Gapur/twilio-paste-intellisense/main/assets/completion-example.png" alt="completion" />
+
 ### Hover Preview
 
 View the value and description of the Twilio Paste token property by hovering over it.
