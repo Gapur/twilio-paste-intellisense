@@ -9,6 +9,7 @@ import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { colors } from './colors';
 import { boxShadows } from './box-shadows';
+import { sizings } from './sizings';
 
 export * from './paste-token-attributes';
 
@@ -24,4 +25,5 @@ export default {
   borderColors,
   colors,
   boxShadows,
+  sizings,
 };
