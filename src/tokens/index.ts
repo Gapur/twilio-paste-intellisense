@@ -8,6 +8,11 @@ import { backgrounColors } from './background-colors';
 import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { colors } from './colors';
+import { boxShadows } from './box-shadows';
+import { sizings } from './sizings';
+import { lineHeights } from './line-heights';
+
+export * from './paste-token-attributes';
 
 export default {
   spacings,
@@ -20,4 +25,7 @@ export default {
   borderWidths,
   borderColors,
   colors,
+  boxShadows,
+  sizings,
+  lineHeights,
 };
