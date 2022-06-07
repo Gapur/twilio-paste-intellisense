@@ -8,7 +8,7 @@ Twilio Paste Intellisense extends the development experience of Twilio Paste by 
 
 ## About Paste
 
-Paste is a design system used to build accessible, cohesive, and high-quality customer experiences at Twilio. Paste supports Product Designers and Engineers with tooling and assets that help them build customer UIs in Figma and React.
+[Paste](https://paste.twilio.design/introduction/about-paste/) is a design system used to build accessible, cohesive, and high-quality customer experiences at Twilio. Paste supports Product Designers and Engineers with tooling and assets that help them build customer UIs in Figma and React.
 
 >Design tokens are the visual design atoms of the design system — specifically, they are named entities that store visual design attributes. — Salesforce UX, [Lightning Design System](https://www.lightningdesignsystem.com/design-tokens/)
 
