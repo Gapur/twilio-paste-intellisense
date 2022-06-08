@@ -19,7 +19,7 @@ In Paste, 1 rem unit = 16 pixels.
 
 ## Why should we use Twilio Paste Intellisense
 
-Twilio Paste is a great design system, but working with tokens is time consuming. Because before using the token, we need to check the list of tokens, which one suits us. For example, if we want to use a margin like 20px, we need to check what `space` token is [20px (space-60 = 20px)](https://paste.twilio.design/tokens/list/#spacings). This is where Twilio Paste Intellisense comes into play. It has two features:
+Twilio Paste is a great design system, but working with tokens is time consuming. Because before using the token, we need to check the list of tokens, which one suits us. For example, if we want to use a margin like 20px, we need to check what `space` token is [20px (space60 = 20px)](https://paste.twilio.design/tokens/list/#spacings). This is where Twilio Paste Intellisense comes into play. It has two features:
    - `Hover preview` - check the value of the token by hovering over it;
    - `Autocomplete` - use a dropdown menu with the name and value of the token when we start typing the component's paste properties.
 
