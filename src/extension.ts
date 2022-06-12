@@ -44,21 +44,36 @@ export function isColor(pasteToken: keyof typeof pasteTokens) {
   return false;
 }
 
+export function getCompletionItem(
+  pasteTokenName: keyof typeof pasteTokens,
+  pasteTokenEntry: [string, PasteToken]
+) {
+  const [key, pasteToken] = pasteTokenEntry;
+  if (isColor(pasteTokenName)) {
+    return {
+      label: key,
+      documentation: pasteToken.value,
+      kind: vscode.CompletionItemKind.Color,
+      detail: pasteToken.value,
+    };
+  }
+
+  const completionItemLabel = {
+    label: key,
+    description: pasteToken.value,
+  };
+  return new vscode.CompletionItem(
+    completionItemLabel,
+    vscode.CompletionItemKind.Constant
+  );
+}
+
 export function getAttributeTokens(attributeName: string) {
   const items: vscode.CompletionItem[] = [];
   const pasteTokenName = pasteTokenAttributes[attributeName];
   if (pasteTokens[pasteTokenName]) {
-    for (const [key, pasteToken] of Object.entries(
-      pasteTokens[pasteTokenName]
-    )) {
-      const completionItem: vscode.CompletionItem = {
-        label: key,
-        documentation: pasteToken.value,
-        kind: isColor(pasteTokenName)
-          ? vscode.CompletionItemKind.Color
-          : vscode.CompletionItemKind.Constant,
-        detail: pasteToken.value,
-      };
+    for (const pasteTokenEntry of Object.entries(pasteTokens[pasteTokenName])) {
+      const completionItem = getCompletionItem(pasteTokenName, pasteTokenEntry);
 
       items.push(completionItem);
     }
