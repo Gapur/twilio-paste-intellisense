@@ -101,7 +101,7 @@ suite("Extension Test Suite", () => {
   });
 
   suite("getAttributeTokens", () => {
-    test("when paste token items length by attribute name", () => {
+    test("paste token items by attribute name", () => {
       const borderRadiusToken = myExtension.getAttributeTokens("borderRadius");
 
       assert.strictEqual(borderRadiusToken.length, 6);
@@ -111,7 +111,7 @@ suite("Extension Test Suite", () => {
       assert.strictEqual(zIndexToken.length, 10);
     });
 
-    test("when attribute name is not correct", () => {
+    test("when attribute name is not correct and empty", () => {
       const borderRadiusToken = myExtension.getAttributeTokens("borderRadi");
 
       assert.strictEqual(borderRadiusToken.length, 0);

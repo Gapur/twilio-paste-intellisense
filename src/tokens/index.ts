@@ -4,7 +4,7 @@ import { zIndices } from "./z-indices";
 import { radii } from "./radii";
 import { fontWeights } from "./font-weights";
 import { fontSizes } from "./font-sizes";
-import { backgrounColors } from './background-colors';
+import { backgroundColors } from './background-colors';
 import { borderWidths } from './border-widths';
 import { borderColors } from './border-colors';
 import { colors } from './colors';
@@ -21,7 +21,7 @@ export default {
   radii,
   fontWeights,
   fontSizes,
-  backgrounColors,
+  backgroundColors,
   borderWidths,
   borderColors,
   colors,

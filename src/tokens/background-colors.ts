@@ -1,6 +1,6 @@
 import { PasteToken } from "../models/paste-token";
 
-export const backgrounColors: Record<string, PasteToken> = {
+export const backgroundColors: Record<string, PasteToken> = {
   colorBackground: {
     label: "color-background",
     value: "rgb(244, 244, 246)",

@@ -32,22 +32,35 @@ export function getAttributeName(linePrefix: string) {
   return attributeName;
 }
 
+export function isColor(pasteToken: keyof typeof pasteTokens) {
+  if (
+    pasteToken === "backgroundColors" ||
+    pasteToken === "borderColors" ||
+    pasteToken === "colors" ||
+    pasteToken === "textColors"
+  ) {
+    return true;
+  }
+  return false;
+}
+
 export function getAttributeTokens(attributeName: string) {
   const items: vscode.CompletionItem[] = [];
   const pasteTokenName = pasteTokenAttributes[attributeName];
   if (pasteTokens[pasteTokenName]) {
-    for (const [key, value] of Object.entries(pasteTokens[pasteTokenName])) {
-      const completionItemLabel: vscode.CompletionItemLabel = {
+    for (const [key, pasteToken] of Object.entries(
+      pasteTokens[pasteTokenName]
+    )) {
+      const completionItem: vscode.CompletionItem = {
         label: key,
-        description: value.value,
+        documentation: pasteToken.value,
+        kind: isColor(pasteTokenName)
+          ? vscode.CompletionItemKind.Color
+          : vscode.CompletionItemKind.Constant,
+        detail: pasteToken.value,
       };
 
-      items.push(
-        new vscode.CompletionItem(
-          completionItemLabel,
-          vscode.CompletionItemKind.Constant
-        )
-      );
+      items.push(completionItem);
     }
     return items;
   }
