@@ -31,7 +31,7 @@ export const pasteTokenAttributes: Record<string, keyof typeof pasteTokens> = {
   borderBottomColor: "borderColors",
   borderLeftColor: "borderColors",
   zIndex: "zIndices",
-  backgroundColor: "backgrounColors",
+  backgroundColor: "backgroundColors",
   columnGap: "spacings",
   rowGap: "spacings",
   boxshadow: "boxShadows",
