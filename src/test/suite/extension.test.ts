@@ -2,6 +2,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 
 import * as myExtension from "../../extension";
+import { PasteToken } from "../../models/paste-token";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -119,6 +120,64 @@ suite("Extension Test Suite", () => {
       const zIndexToken = myExtension.getAttributeTokens("");
 
       assert.strictEqual(zIndexToken.length, 0);
+    });
+  });
+
+  suite("getCompletionItem", () => {
+    test("completion color item", () => {
+      const pasteTokenEntry: [string, PasteToken] = [
+        "backgroundColors",
+        { value: "rgb(244, 244, 246)" } as PasteToken,
+      ];
+      const backgroundColorsItem = myExtension.getCompletionItem(
+        "backgroundColors",
+        pasteTokenEntry
+      );
+
+      const result = {
+        label: "backgroundColors",
+        documentation: "rgb(244, 244, 246)",
+        kind: vscode.CompletionItemKind.Color,
+        detail: "rgb(244, 244, 246)",
+      };
+      assert.deepStrictEqual(backgroundColorsItem, result);
+    });
+
+    test("when paste token key is empty", () => {
+      const pasteTokenEntry: [string, PasteToken] = [
+        "",
+        { value: "rgb(244, 244, 246)" } as PasteToken,
+      ];
+      const backgroundColorsItem = myExtension.getCompletionItem(
+        "backgroundColors",
+        pasteTokenEntry
+      );
+
+      const result = {
+        label: "backgroundColors",
+        documentation: "rgb(244, 244, 246)",
+        kind: vscode.CompletionItemKind.Color,
+        detail: "rgb(244, 244, 246)",
+      };
+      assert.notDeepStrictEqual(backgroundColorsItem, result);
+    });
+  });
+
+  suite("isColor", () => {
+    test("when token name is colors", () => {
+      const isBackgroundColors = myExtension.isColor("backgroundColors");
+
+      assert.strictEqual(isBackgroundColors, true);
+
+      const isBorderColors = myExtension.isColor("borderColors");
+
+      assert.strictEqual(isBorderColors, true);
+    });
+
+    test("when token name is borderWidths", () => {
+      const isColor = myExtension.isColor("borderWidths");
+
+      assert.strictEqual(isColor, false);
     });
   });
 });
